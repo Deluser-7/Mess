@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "547348030881",
+    "firebase_url": "https://login-e250c.firebaseio.com",
+    "project_id": "login-e250c",
+    "storage_bucket": "login-e250c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547348030881:android:dfe419255861b89b",
+        "android_client_info": {
+          "package_name": "com.example.lenovo.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547348030881-nh8qi5lfr9eb331imjgj6j1k6htqkiml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDblom1LoaPuU3DmYgIndUEyfurl9Moc8M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
