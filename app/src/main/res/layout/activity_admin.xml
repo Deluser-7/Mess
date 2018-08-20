@@ -16,8 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
@@ -162,19 +161,19 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_refresh"
+                android:id="@+id/btn_scan"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_gravity="end"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/btn_bg"
+                android:foreground="@drawable/onclick_effect"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:layout_gravity="end"
-                android:text="refresh"
-                android:foreground="@drawable/onclick_effect"
+                android:text="Scan"
                 android:textColor="#ffffff"
                 app:layout_constraintBottom_toTopOf="@+id/btnaResetPass"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -350,6 +349,7 @@
 
 
         </LinearLayout>
+
     </ScrollView>
 
 

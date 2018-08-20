@@ -3,19 +3,14 @@ package com.example.lenovo.login;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +18,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.IOException;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,7 +31,7 @@ public class Use_Coupon extends AppCompatActivity {
     String today;
     String userRoll;
     String mealValue="";
-    private Button approve;
+    private ImageView ivQR;
     Calendar c = Calendar.getInstance();
     private TextView roll,time,tdDAY,date,meal,msg;
 
@@ -60,25 +57,39 @@ public class Use_Coupon extends AppCompatActivity {
         myThread= new Thread(myRunnableThread);
         myThread.start();
 
-
-        approve.setOnClickListener(new View.OnClickListener() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(View v) {
-
-                //Check for live internet connection by a ping to google
-                //Can't use coupon without internet
-                AlertDialog.Builder buildeR = new AlertDialog.Builder(Use_Coupon.this);
-                buildeR.setMessage("Are you sure want to use this coupon?")
-                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                approve_delete();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(userRoll).child(today).child(mealValue).exists()){
+                    String content = userRoll+":"+today+":"+mealValue;
+                    QRCodeWriter writer = new QRCodeWriter();
+                    try {
+                        BitMatrix bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 256, 256);
+                        int width = bitMatrix.getWidth();
+                        int height = bitMatrix.getHeight();
+                        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+                        for (int x = 0; x < width; x++) {
+                            for (int y = 0; y < height; y++) {
+                                bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
                             }
-                        })
-                        .setNegativeButton("No",null);
-                AlertDialog alert = buildeR.create();
-                alert.show();
+                        }
+                        ivQR.setImageBitmap(bmp);
+
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                else{
+                    ivQR.setVisibility(View.INVISIBLE);
+                    msg.setText("Enjoy your meal.");
+                }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError){}
         });
     }
 
@@ -89,7 +100,7 @@ public class Use_Coupon extends AppCompatActivity {
         date= findViewById(R.id.tvDATE);
         meal= findViewById(R.id.tvMEAL);
         msg=findViewById(R.id.tvMsg);
-        approve= findViewById(R.id.btnApprove);
+        ivQR=findViewById(R.id.ivQR);
     }
     private void setDay(){
         int day = c.get(Calendar.DAY_OF_WEEK);
@@ -108,26 +119,6 @@ public class Use_Coupon extends AppCompatActivity {
         userRoll = user.getDisplayName();
         roll.setText(userRoll);
     }
-    private void approve_delete(){
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                databaseReference.child(userRoll).child(today).child(mealValue).removeValue();
-                approve.setVisibility(View.INVISIBLE);
-                msg.setText("Enjoy Your Meal");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-   /* public boolean isConnected() throws InterruptedException, IOException {
-        String command = "ping -c 1 google.com";
-        return (Runtime.getRuntime().exec (command).waitFor() == 0);
-    }*/
     private android.app.AlertDialog.Builder buildDialog(Context c){
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(c);
         builder.setTitle("No Internet Connection");
@@ -142,7 +133,6 @@ public class Use_Coupon extends AppCompatActivity {
 
         return builder;
     }
-
     //running timer
     public void doWork() {
         runOnUiThread(new Runnable() {
@@ -168,5 +158,4 @@ public class Use_Coupon extends AppCompatActivity {
             }
         }
     }
-
 }

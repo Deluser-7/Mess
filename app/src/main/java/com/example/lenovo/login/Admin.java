@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class Admin extends AppCompatActivity {
 
     private String DateT,DateTm;
-    private Button reset,refresh;
+    private Button reset,scan;
     private TextView tDate,tmDate;
     private TextView bf,ln,dn,ht,all;
     private TextView bf1,ln1,dn1,ht1,all1;
@@ -67,11 +67,10 @@ public class Admin extends AppCompatActivity {
         });
         
 
-        refresh.setOnClickListener(new View.OnClickListener() {
+        scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCoupons();
-                Toast.makeText(Admin.this, "Done", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Admin.this,Scanner.class));
             }
         });
 
@@ -92,7 +91,7 @@ public class Admin extends AppCompatActivity {
         dn=findViewById(R.id.tvaDinner);
         all=findViewById(R.id.tvaAll);
         reset=findViewById(R.id.btnaResetPass);
-        refresh=findViewById(R.id.btn_refresh);
+        scan=findViewById(R.id.btn_scan);
         bf1=findViewById(R.id.tvaBreakfastN);
         ln1=findViewById(R.id.tvaLunchN);
         ht1=findViewById(R.id.tvaHighTeaN);
