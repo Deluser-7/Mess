@@ -61,6 +61,8 @@ public class Logged_In extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         if (!isConnected(Logged_In.this))
             builderDialog(Logged_In.this).show();
         else{

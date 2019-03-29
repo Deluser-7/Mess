@@ -166,7 +166,6 @@ public class Login extends AppCompatActivity {
             firebaseAuth.signOut();
         }
     }
-
     private void getPass(){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Password");
         databaseReference.addValueEventListener(new ValueEventListener() {

@@ -84,6 +84,7 @@
                     android:focusable="true"
                     android:foreground="@drawable/onclick_effect"
                     app:cardCornerRadius="4dp"
+                    app:cardBackgroundColor="@color/white"
                     app:cardElevation="10dp">
 
                     <LinearLayout
@@ -133,6 +134,7 @@
                     android:focusable="true"
                     android:foreground="@drawable/onclick_effect"
                     app:cardCornerRadius="4dp"
+                    app:cardBackgroundColor="@color/white"
                     app:cardElevation="10dp">
 
                     <LinearLayout
@@ -192,6 +194,7 @@
                     android:focusable="true"
                     android:foreground="@drawable/onclick_effect"
                     app:cardCornerRadius="4dp"
+                    app:cardBackgroundColor="@color/white"
                     app:cardElevation="10dp">
 
                     <LinearLayout
@@ -240,6 +243,7 @@
                     android:focusable="true"
                     android:foreground="@drawable/onclick_effect"
                     app:cardCornerRadius="4dp"
+                    app:cardBackgroundColor="@color/white"
                     app:cardElevation="10dp">
 
                     <LinearLayout
@@ -298,6 +302,7 @@
                     android:focusable="true"
                     android:foreground="@drawable/onclick_effect"
                     app:cardCornerRadius="4dp"
+                    app:cardBackgroundColor="@color/white"
                     app:cardElevation="10dp">
 
                     <LinearLayout
@@ -345,6 +350,7 @@
                     android:focusable="true"
                     android:foreground="@drawable/onclick_effect"
                     app:cardCornerRadius="4dp"
+                    app:cardBackgroundColor="@color/white"
                     app:cardElevation="10dp">
 
                     <LinearLayout
@@ -402,6 +408,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="@drawable/onclick_effect"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="10dp">
 
@@ -449,6 +456,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="@drawable/onclick_effect"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="10dp">
 
